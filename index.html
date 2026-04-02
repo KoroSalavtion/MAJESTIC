@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turnierbaum</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">🏆</span>
+          <h1>Turnierbaum</h1>
+        </div>
+        <button type="button" class="btn btn-ghost" id="themeToggle" aria-label="Theme wechseln">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="layout">
+        <aside class="sidebar card" id="sidebar">
+          <div class="card-head">
+            <h2>Teams</h2>
+            <span class="muted" id="teamCount"></span>
+          </div>
+          <div id="teamList" class="team-list"></div>
+          <div class="row">
+            <input type="text" id="newTeamName" placeholder="Teamname" maxlength="48" />
+            <button type="button" class="btn btn-primary" id="addTeam">Hinzufügen</button>
+          </div>
+          <div class="section">
+            <label class="label">Preisgeld</label>
+            <input type="text" id="prizeInput" inputmode="numeric" placeholder="z. B. 1000000" />
+            <p class="hint" id="prizeSplit"></p>
+          </div>
+          <div class="section">
+            <label class="label">Presets</label>
+            <div class="row wrap">
+              <select id="presetSelect"></select>
+              <button type="button" class="btn btn-outline" id="loadPreset">Laden</button>
+              <button type="button" class="btn btn-outline" id="savePreset">Speichern</button>
+              <button type="button" class="btn btn-outline danger" id="deletePreset">Löschen</button>
+            </div>
+          </div>
+          <div class="section actions">
+            <button type="button" class="btn btn-primary wide" id="startBtn">Turnier starten</button>
+            <button type="button" class="btn btn-outline wide hidden" id="resetBtn">Zurücksetzen</button>
+          </div>
+        </aside>
+
+        <section class="content">
+          <div id="placeholder" class="card placeholder">
+            <div class="ph-icon">🏆</div>
+            <h2>Turnierbaum Generator</h2>
+            <p class="muted">
+              Mindestens 2 Teams links anlegen, dann <strong>Turnier starten</strong>. Auf ein Team klicken,
+              um den Gewinner zu wählen – erneut klicken zum Zurücksetzen.
+            </p>
+          </div>
+          <div id="bracketWrap" class="hidden">
+            <div class="card">
+              <h2 class="card-title">Turnierbaum</h2>
+              <div id="championBox" class="champion hidden"></div>
+              <div class="bracket-scroll">
+                <div id="bracket" class="bracket"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
