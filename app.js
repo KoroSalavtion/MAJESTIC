@@ -1,6 +1,15 @@
 ;(function () {
   "use strict"
 
+  /** Schmale Viewports / Handy: setzt data-mobile für CSS (Stretch & Safe Area). */
+  const mqNarrow = window.matchMedia("(max-width: 1023px)")
+  function syncMobileLayout() {
+    document.documentElement.dataset.mobile = mqNarrow.matches ? "1" : "0"
+  }
+  syncMobileLayout()
+  if (mqNarrow.addEventListener) mqNarrow.addEventListener("change", syncMobileLayout)
+  else if (mqNarrow.addListener) mqNarrow.addListener(syncMobileLayout)
+
   const PRIZE_PERCENT = [50, 30, 20]
   const PRESET_KEY = "turnierbaum-presets-v1"
   const THEME_KEY = "turnierbaum-theme"

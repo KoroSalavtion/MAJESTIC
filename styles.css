@@ -24,12 +24,29 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
 .header {
@@ -44,7 +61,8 @@ body {
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0.75rem 1rem;
+  padding: max(0.75rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    0.75rem max(1rem, env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,15 +93,25 @@ body {
 }
 
 .main {
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem 1rem 3rem;
+  padding: 1.5rem 1rem max(3rem, env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
 }
 
 .layout {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  flex: 1 1 auto;
   gap: 1.5rem;
+  min-height: 0;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -98,7 +126,77 @@ body {
   .content {
     flex: 1;
     min-width: 0;
+    align-self: stretch;
   }
+}
+
+/* Handy / schmale Viewports: Layout volle Breite, Inhalt gestreckt */
+@media (max-width: 1023px) {
+  .layout {
+    align-items: stretch;
+  }
+
+  .sidebar,
+  .content {
+    width: 100%;
+    align-self: stretch;
+    min-width: 0;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .placeholder {
+    flex: 1 1 auto;
+  }
+
+  #bracketWrap:not(.hidden) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  #bracketWrap:not(.hidden) .card {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  #bracketWrap:not(.hidden) .bracket-scroll {
+    flex: 1 1 auto;
+    min-height: min(70dvh, 32rem);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+}
+
+/* Touch-Geräte: etwas großzügigere Bedienflächen */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 2.75rem;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .slot.clickable {
+    min-height: 2.75rem;
+  }
+}
+
+/* Schmal + Touch (typisches Handy): Modus per data-mobile von app.js */
+:root[data-mobile="1"] .main {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+:root[data-mobile="1"] .bracket-scroll {
+  min-height: max(50dvh, 12rem);
 }
 
 .card {
