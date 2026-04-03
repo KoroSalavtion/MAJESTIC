@@ -1,2 +1,0 @@
-# MAJESTIC
-Test
